@@ -3,7 +3,7 @@ A Julia implementation of Wavelet Kolmogorov-Arnold Networks (wavKAN).  Mutli-la
 
 ## Problem and Data - 2D Darcy Flow
 
-The 2D Darcy flow problem is a fundamental problem in fluid dynamics and porous media flow, described by the partial differential equation (PDE):
+The 2D Darcy flow equation on the unit box is a problem in fluid dynamics and porous media flow, described by the partial differential equation (PDE):
 
 $$
 -\nabla \cdot (a(x) \nabla u(x)) = f(x), \quad x \in (0,1)^2
