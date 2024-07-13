@@ -1,6 +1,6 @@
 module MATFileLoader
 
-export load_visco_data
+export load_darcy_data
 
 using MAT
 

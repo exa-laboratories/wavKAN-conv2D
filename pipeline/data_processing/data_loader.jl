@@ -2,7 +2,7 @@ module loaders
 
 include("./data_reader.jl")
 include("../../utils.jl")
-using .MATFileLoader: load_visco_data
+using .MATFileLoader: load_darcy_data
 using .UTILS: UnitGaussianNormaliser, unit_encode, MinMaxNormaliser, minmax_encode
 using Flux
 using CUDA
