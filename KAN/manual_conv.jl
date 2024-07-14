@@ -1,4 +1,8 @@
+module manual_conv
+
 include("KAN_layers.jl")
+
+export KAN_conv2D
 
 using LinearAlgebra
 using Statistics
@@ -41,6 +45,13 @@ function unfold(input, kernel_size; stride=1, padding=0, dilation=1)
     return output
 end
 
+function add_padding(matrix, padding=0)
+    n, m, n_channels, batch_size = size(matrix)
+    matrix_padded = CUDA.zeros(n + 2 * padding, m + 2 * padding, n_channels, batch_size)
+    matrix_padded[padding + 1:end - padding, padding + 1:end - padding, :, :] = matrix
+    return matrix_padded
+end
+
 function KAN_conv2D(matrix, kernel, kernel_size, stride=1, dilation=0, padding=0)
     n, h_out, w_out, n_channels, batch_size = calc_out_dims(matrix, kernel_size, stride, dilation, padding)
     matrix_out = zeros(h_out, w_out, n_channels, batch_size) |> gpu
@@ -56,24 +67,5 @@ function KAN_conv2D(matrix, kernel, kernel_size, stride=1, dilation=0, padding=0
 
     return matrix_out
 end
-
-function add_padding(matrix, padding=0)
-    n, m, n_channels, batch_size = size(matrix)
-    matrix_padded = CUDA.zeros(n + 2 * padding, m + 2 * padding, n_channels, batch_size)
-    matrix_padded[padding + 1:end - padding, padding + 1:end - padding, :, :] = matrix
-    return matrix_padded
 end
-
-# Test functions
-matrix = rand(32, 32, 3, 1) |> gpu
-kernel_size = (3, 3)
-kernel = KANdense(prod(kernel_size), 1, "Morlet", "relu") |> gpu
-stride = 1
-dilation = 1
-padding = 1
-KAN_conv2D(matrix, kernel, kernel_size[1], stride, dilation, padding)
-
-# multiple_convs_KAN_conv2D(matrix, kernels, kernel_size, stride, dilation, padding)
-
-add_padding(matrix, padding)
 
