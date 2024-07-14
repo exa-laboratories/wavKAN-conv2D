@@ -1,7 +1,19 @@
 # wavKAN-conv2D
 A Julia implementation of Wavelet Kolmogorov-Arnold Networks (wavKAN).  Mutli-layer Perceptron (MLP) and wavKAN implementations of the Convolutional Neural Network (CNN) and Fourier Neural Operator (FNO) are applied to learn the solution operator of the 2D Darcy Flow Problem.
 
+## Wavelets
+
+<p align="center">
+  <img src="KAN/wavelets/animations/DerivativeOfGaussian.gif" width="30%" />
+    <img src="KAN/wavelets/animations/MexicanHat.gif" width="30%" />
+    <img src="KAN/wavelets/animations/Meyer.gif" width="30%" />
+    <img src="KAN/wavelets/animations/Morlet.gif" width="30%" />
+    <img src="KAN/wavelets/animations/Shannon.gif" width="30%" />
+</p>
+
 ## Problem and Data - 2D Darcy Flow
+
+The dataset has been sourced from the University of Cambridge Engineering Department's Part IIB course on [Data-Driven and Learning-Based Methods in Mechanics and Materials.](https://teaching.eng.cam.ac.uk/content/engineering-tripos-part-iib-4c11-data-driven-and-learning-based-methods-mechanics-and)
 
 The 2D Darcy flow equation on the unit box is a problem in fluid dynamics and porous media flow, described by the partial differential equation (PDE):
 
@@ -29,3 +41,10 @@ The goal is to learn the operator mapping the diffusion coefficient \(a\) to the
 $$
 a \mapsto u
 $$
+
+## References
+
+- [Bozorgasl, Z., & Chen, H. (2024). Wav-KAN: Wavelet Kolmogorov-Arnold Networks.](https://arxiv.org/abs/2405.12832)
+- [Liu, Z., Wang, Y., Vaidya, S., Ruehle, F., Halverson, J., Soljačić, M., Hou, T. Y., & Tegmark, M. (2024). KAN: Kolmogorov-Arnold Networks.](https://arxiv.org/abs/2404.19756)
+- [Mejade Dios, J.-A., Mezura-Montes, E., & Quiroz-Castellanos, M. (2021). Automated parameter tuning as a bilevel optimization problem solved by a surrogate-assisted population-based approach.](https://doi.org/10.1007/s10489-020-02151-y)
+- [Liu, B., Cicirello, A. (2024). Cambridge University Engineering Department Part IIB Course on Data-Driven and Learning-Based Methods in Mechanics and Materials.](https://teaching.eng.cam.ac.uk/content/engineering-tripos-part-iib-4c11-data-driven-and-learning-based-methods-mechanics-and)
