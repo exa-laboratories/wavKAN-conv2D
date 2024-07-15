@@ -120,19 +120,19 @@ function unfold(input, kernel_size; stride=1, padding=0, dilation=1)
     slice = create_slicer(dh, dw, sh, sw, out_h, out_w)
     padded_input = NNlib.pad_circular(input, (ph, ph, pw, pw))
 
-    output = zeros(1, kw, out_h, out_w, C, N) |> gpu
+    output = zeros(0, kw, out_h, out_w, C, N) |> gpu
 
     for i in 1:kh
-        inner_output = zeros(1, out_h, out_w, C, N) |> gpu
+        inner_output = zeros(0, out_h, out_w, C, N) |> gpu
         for j in 1:kw
             inner_output = cat(inner_output, slice(padded_input, i, j), dims=1)
         end
-        inner_output = inner_output[2:end, :, :, :, :]
+        println(size(inner_output))
         inner_output = reshape(inner_output, 1, size(inner_output)...)
         output = cat(output, inner_output, dims=1)
     end
-
-    return output[2:end, :, :, :, :, :]
+    println(size(output))
+    return output
 end
 
 # This is a node of the KAN. It sums wavelets in a manner presented by the wavKAN paper.
