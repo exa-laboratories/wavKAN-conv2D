@@ -15,7 +15,6 @@ using .loaders: get_darcy_loader
 using .UTILS: loss_fcn
 using .hyperparams: set_hyperparams
 
-# Define the objective function, edits RNO_config.ini and runs the training 
 function objective(trial)
     seed = get_seed(trial)
     Random.seed!(seed)
@@ -26,20 +25,20 @@ function objective(trial)
     @suggest min_lr in trial
     @suggest activation in trial
     @suggest hidden_dim in trial
-    @suggest batch_size in trial
+    @suggest b_size in trial
 
-    ENV["p"] = 2.0
+    ENV["p"] = "2.0"
     ENV["step"] = step_rate
     ENV["decay"] = gamma
     ENV["LR"] = learning_rate
     ENV["min_LR"] = min_lr
     ENV["activation"] = activation
     ENV["hidden_dim"] = hidden_dim
-    ENV["batch_size"] = batch_size
+    ENV["batch_size"] = b_size
 
     num_epochs = 50
 
-    train_loader, test_loader = get_darcy_loader(batch_size)
+    train_loader, test_loader = get_darcy_loader(b_size)
 
     model = CNN(1, 1) |> gpu
 
@@ -71,7 +70,7 @@ space = Scenario(
     min_lr = (1e-6..1e-1),
     activation = ["relu", "selu", "leakyrelu", "swish", "gelu"],
     hidden_dim = 2:300,
-    batch_size = 1:40,
+    b_size = 1:40,
     verbose = true,
     max_trials = 100,
     pruner = MedianPruner(),
@@ -82,7 +81,7 @@ HyperTuning.optimize(objective, space)
 display(top_parameters(space))
 
 # Save the best configuration
-@unpack step_rate, gamma, learning_rate, min_lr, activation, hidden_dim, batch_size = space
+@unpack step_rate, gamma, learning_rate, min_lr, activation, hidden_dim, b_size = space
 
 conf = ConfParse("MLP_CNN/CNN_config.ini")
 parse_conf!(conf)
@@ -94,7 +93,7 @@ commit!(conf, "Optimizer", "learning_rate", string(learning_rate))
 commit!(conf, "Optimizer", "min_lr", string(min_lr))
 commit!(conf, "Architecture", "activation", activation)
 commit!(conf, "Architecture", "hidden_dim", string(hidden_dim))
-commit!(conf, "Dataloader", "batch_size", string(batch_size))
+commit!(conf, "Dataloader", "batch_size", string(b_size))
 commit!(conf, "Optimizer", "type", "Adam")
 
 save!(conf, "MLP_CNN/CNN_config.ini")

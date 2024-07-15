@@ -28,7 +28,7 @@ function CNN(in_channels::Int, out_channels::Int)
     encoder = Chain(
         Conv((3, 3), in_channels => 2 * hidden_dim, phi; pad=1),
         Conv((3, 3), 2 * hidden_dim => 4 * hidden_dim, phi; pad=1),
-        Conv((3, 3), 32 => 8 * hidden_dim, phi; pad=1),
+        Conv((3, 3), 4 * hidden_dim => 8 * hidden_dim, phi; pad=1),
     )
 
     decoder = Chain(
