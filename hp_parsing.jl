@@ -93,7 +93,7 @@ function set_hyperparams(model_name)
         out = set_CNN_params()
     elseif model_name == "FNO"
         out = set_FNO_params()
-    elseif model_name = "KAN_CNN"
+    elseif model_name == "KAN_CNN"
         out = set_KAN_CNN_params()
     else
         println("Invalid model name")

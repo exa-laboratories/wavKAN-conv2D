@@ -5,7 +5,7 @@ export KAN_CNN
 include("../KAN/KAN_layers.jl")
 
 using Flux, NNlib
-using .layers: KAN_Conv, KAN_Conv2D
+using .layers: KAN_Conv, KAN_ConvTranspose
 
 # Activation mapping
 act_map = Dict(
@@ -21,13 +21,6 @@ struct wavKAN_CNN
     encoder 
     decoder
 end
-
-decoder = Chain(
-        ConvTranspose((3, 3), 8 * hidden_dim => 4 * hidden_dim, phi; pad=1),
-        ConvTranspose((3, 3), 4 * hidden_dim => 2 * hidden_dim, phi; pad=1),
-        ConvTranspose((3, 3), 2 * hidden_dim => hidden_dim, phi; pad=1),
-        ConvTranspose((3, 3), hidden_dim => out_channels, phi; pad=1)
-    )
 
 function KAN_CNN(in_channels::Int, out_channels::Int, encoder_wav_names, encoder_activations, decoder_wav_names, decoder_activations)
     hidden_dim = parse(Int32, get(ENV, "hidden_dim", "64"))
