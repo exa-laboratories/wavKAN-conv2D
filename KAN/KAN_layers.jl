@@ -5,6 +5,8 @@ include("./wavelets/morlet.jl")
 include("./wavelets/derivative_of_gaussian.jl")
 include("./wavelets/shannon.jl")
 include("./wavelets/meyer.jl")
+include("manual_conv.jl")
+include("manual_convTranspose.jl")
 
 export KANdense
 
@@ -16,6 +18,8 @@ using .Morlet: MorletWavelet
 using .DoG: DoGWavelet
 using .Shannon: ShannonWavelet
 using .Meyer: MeyerWavelet
+using .manual_conv: KAN_conv2D
+using .manual_convTranspose: KAN_convTranspose2D
 
 bool_2D = parse(Bool, get(ENV, "2D", "false"))
 
@@ -72,7 +76,7 @@ end
 
 function (l::KANdense_layer)(x) 
     x_expanded = l.reshape_fcn(x)
-    
+
     translation_expanded = repeat(l.translation, 1, 1, size(x_expanded)[3:end]...)
     scale_expanded = repeat(l.scale, 1, 1, size(x_expanded)[3:end]...)
     x_expanded = (x_expanded - translation_expanded) ./ scale_expanded 
@@ -85,5 +89,47 @@ function (l::KANdense_layer)(x)
 end
 
 Flux.@functor KANdense_layer
+
+struct KAN_Convolution
+    dense_kernel
+    kernel_size
+    stride
+    dilation
+    padding
+    norm
+end
+
+function KAN_Conv(in_channels, out_channels, kernel_size, wavelet, base_activation, stride=1, dilation=0, padding=0, norm=false)
+    dense_kernel = KANdense(prod(kernel_size), 1, wavelet, base_activation, norm)
+    return KAN_Convolution(dense_kernel, kernel_size, stride, dilation, padding, norm)
+end
+
+function (c::KAN_Convolution)(x)
+    x = KAN_conv2D(x, c.dense_kernel, c.kernel_size, c.stride, c.dilation, c.padding)
+    return x
+end
+
+Flux.@functor KAN_Convolution
+
+struct KAN_ConvolutionTranspose
+    dense_kernel
+    kernel_size
+    stride
+    dilation
+    padding
+    norm
+end
+
+function KAN_ConvTranspose(in_channels, out_channels, kernel_size, wavelet, base_activation, stride=1, dilation=0, padding=0, norm=false)
+    dense_kernel = KANdense(prod(kernel_size), 1, wavelet, base_activation, norm)
+    return KAN_ConvolutionTranspose(dense_kernel, kernel_size, stride, dilation, padding, norm)
+end
+
+function (c::KAN_ConvolutionTranspose)(x)
+    x = KAN_convTranspose2D(x, c.dense_kernel, c.kernel_size, c.stride, c.dilation, c.padding)
+    return x
+end
+
+Flux.@functor KAN_ConvolutionTranspose
 
 end
