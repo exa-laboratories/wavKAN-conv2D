@@ -29,7 +29,7 @@ function KAN_CNN(in_channels::Int, out_channels::Int, encoder_wav_names, encoder
     encoder_list = [
         KAN_Conv(in_channels, 2 * hidden_dim, (3,3), encoder_wav_names[1], encoder_activations[1], 1, 1, 1, norm),
         KAN_Conv(2 * hidden_dim, 4 * hidden_dim, (3,3), encoder_wav_names[2], encoder_activations[2], 1, 1, 1, norm),
-        KAN_Conv(32, 8 * hidden_dim, (3,3), encoder_wav_names[3], encoder_activations[3], 1, 1, 1, norm)
+        KAN_Conv(4 * hidden_dim, 8 * hidden_dim, (3,3), encoder_wav_names[3], encoder_activations[3], 1, 1, 1, norm)
     ]
 
     decoder_list = [
