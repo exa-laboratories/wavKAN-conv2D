@@ -11,7 +11,8 @@ act_map = Dict(
     "tanh" => NNlib.hardtanh,
     "sigmoid" => NNlib.hardsigmoid,
     "swish" => NNlib.hardswish,
-    "gelu" => NNlib.gelu
+    "gelu" => NNlib.gelu,
+    "selu" => NNlib.selu
 )
 
 struct CNN
