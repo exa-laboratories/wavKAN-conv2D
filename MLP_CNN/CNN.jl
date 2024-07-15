@@ -4,11 +4,6 @@ export CNN
 
 using Flux, NNlib
 
-struct CNN
-    encoder 
-    decoder
-end
-
 # Activation mapping
 act_map = Dict(
     "relu" => NNlib.relu,
@@ -18,6 +13,11 @@ act_map = Dict(
     "swish" => NNlib.hardswish,
     "gelu" => NNlib.gelu
 )
+
+struct CNN
+    encoder 
+    decoder
+end
 
 function CNN(in_channels::Int, out_channels::Int)
     activation = get(ENV, "activation", "relu")

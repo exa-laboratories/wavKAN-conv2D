@@ -4,6 +4,7 @@ include("utils.jl")
 include("pipeline/train.jl")
 include("MLP_CNN/CNN.jl")
 include("MLP_FNO/FNO.jl")
+include("wavKAN_CNN/KAN_CNN.jl")
 
 using Random
 using Flux, CUDA, KernelAbstractions
@@ -15,11 +16,12 @@ using .loaders: get_darcy_loader
 using .UTILS: loss_fcn, BIC, log_csv
 using .ConvNN: CNN
 using .FourierNO: FNO
+using .KAN_Convolution: KAN_CNN
 using .hyperparams: set_hyperparams
 
 NUM_REPETITIONS = 5
 
-model_name = "FNO"
+model_name = "KAN_CNN"
 hparams = set_hyperparams(model_name)
 batch_size = parse(Int, get(ENV, "batch_size", "32"))
 learning_rate = parse(Float32, get(ENV, "LR", "1e-3"))
@@ -36,14 +38,21 @@ function create_FNO()
     return FNO(3,1) |> gpu
 end
 
+function create_KAN_CNN()
+    encoder_wavelet_names, encoder_activations, decoder_wavelet_names, decoder_activations = hparams
+    return KAN_CNN(1, 1, encoder_wavelet_names, encoder_activations, decoder_wavelet_names, decoder_activations) |> gpu
+end
+
 instantiate_model = Dict(
     "CNN" => create_CNN,
-    "FNO" => create_FNO
+    "FNO" => create_FNO,
+    "KAN_CNN" => create_KAN_CNN
 )[model_name]
 
 log_file_base = Dict(
     "CNN" => "MLP_CNN/logs/",
-    "FNO" => "MLP_FNO/logs/"
+    "FNO" => "MLP_FNO/logs/",
+    "KAN_CNN" => "wavKAN_CNN/logs/"
 )[model_name]
 
 optimizer = Dict(

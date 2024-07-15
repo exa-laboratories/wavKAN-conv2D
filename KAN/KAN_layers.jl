@@ -8,7 +8,7 @@ include("./wavelets/meyer.jl")
 include("manual_conv.jl")
 include("manual_convTranspose.jl")
 
-export KANdense
+export KANdense, KAN_Conv, KAN_conv2D
 
 using Flux, CUDA, KernelAbstractions
 using Flux: Dense, BatchNorm
