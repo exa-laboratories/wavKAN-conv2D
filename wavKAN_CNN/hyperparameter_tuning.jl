@@ -85,15 +85,15 @@ function objective(trial)
 end
 
 activation_list = ["relu", "selu", "leakyrelu", "swish", "gelu"]
-wavelet_list = ["MexicanHat", "DerivativeOfGaussian", "Morlet", "Shannon", "Meyer"]
+wavelet_list = ["MexicanHat", "DerivativeOfGaussian", "Morlet"]
 
 space = Scenario(
     step_rate = 10:40,
     gamma = (0.5..0.9),
     learning_rate = (1e-6..1e-1),
     min_lr = (1e-6..1e-1),
-    hidden_dim = 2:300,
-    b_size = 1:40,
+    hidden_dim = 2:40,
+    b_size = 1:20,
     encoder_wav_one = wavelet_list,
     enoder_wav_two = wavelet_list,
     encoder_wav_three = wavelet_list,
