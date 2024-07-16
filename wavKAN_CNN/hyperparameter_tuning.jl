@@ -23,7 +23,6 @@ function objective(trial)
     @suggest gamma in trial
     @suggest learning_rate in trial
     @suggest min_lr in trial
-    @suggest activation in trial
     @suggest hidden_dim in trial
     @suggest b_size in trial
     @suggest encoder_wav_one in trial
@@ -47,7 +46,6 @@ function objective(trial)
     ENV["decay"] = gamma
     ENV["LR"] = learning_rate
     ENV["min_LR"] = min_lr
-    ENV["activation"] = activation
     ENV["hidden_dim"] = hidden_dim
     ENV["batch_size"] = b_size
     ENV["norm"] = norm
@@ -92,10 +90,10 @@ space = Scenario(
     gamma = (0.5..0.9),
     learning_rate = (1e-6..1e-1),
     min_lr = (1e-6..1e-1),
-    hidden_dim = 2:40,
-    b_size = 1:20,
+    hidden_dim = 2:170,
+    b_size = 1:30,
     encoder_wav_one = wavelet_list,
-    enoder_wav_two = wavelet_list,
+    encoder_wav_two = wavelet_list,
     encoder_wav_three = wavelet_list,
     encoder_activation_one = activation_list,
     encoder_activation_two = activation_list,
@@ -119,7 +117,7 @@ HyperTuning.optimize(objective, space)
 display(top_parameters(space))
 
 # Save the best configuration
-@unpack step_rate, gamma, learning_rate, min_lr, activation, hidden_dim, b_size, encoder_wav_one, encoder_wav_two, encoder_wav_three, encoder_activation_one, encoder_activation_two, encoder_activation_three, decoder_wav_one, decoder_wav_two, decoder_wav_three, decoder_wav_four, decoder_activation_one, decoder_activation_two, decoder_activation_three, decoder_activation_four, norm = space
+@unpack step_rate, gamma, learning_rate, min_lr, hidden_dim, b_size, encoder_wav_one, encoder_wav_two, encoder_wav_three, encoder_activation_one, encoder_activation_two, encoder_activation_three, decoder_wav_one, decoder_wav_two, decoder_wav_three, decoder_wav_four, decoder_activation_one, decoder_activation_two, decoder_activation_three, decoder_activation_four, norm = space
 
 conf = ConfParse("wavKAN_CNN/KAN_CNN_config.ini")
 parse_conf!(conf)
@@ -129,7 +127,6 @@ commit!(conf, "Optimizer", "step_rate", string(step_rate))
 commit!(conf, "Optimizer", "gamma", string(gamma))
 commit!(conf, "Optimizer", "learning_rate", string(learning_rate))
 commit!(conf, "Optimizer", "min_lr", string(min_lr))
-commit!(conf, "Architecture", "activation", activation)
 commit!(conf, "Architecture", "hidden_dim", string(hidden_dim))
 commit!(conf, "Dataloader", "batch_size", string(b_size))
 commit!(conf, "Optimizer", "type", "Adam")

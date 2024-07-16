@@ -127,11 +127,9 @@ function unfold(input, kernel_size; stride=1, padding=0, dilation=1)
         for j in 1:kw
             inner_output = cat(inner_output, slice(padded_input, i, j), dims=1)
         end
-        println(size(inner_output))
         inner_output = reshape(inner_output, 1, size(inner_output)...)
         output = cat(output, inner_output, dims=1)
     end
-    println(size(output))
     return output
 end
 
