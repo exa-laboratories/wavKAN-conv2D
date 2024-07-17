@@ -2,7 +2,7 @@ module FourierNO
 
 export FNO
 
-include("../utils.jl")
+include("../../utils.jl")
 include("./FNO_block.jl")
 include("./FNO_layers.jl")
 

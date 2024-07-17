@@ -1,8 +1,7 @@
-include("../pipeline/data_processing/data_loader.jl")
+include("../../pipeline/data_processing/data_loader.jl")
 include("KAN_CNN.jl")
-include("../utils.jl")
-include("../pipeline/train.jl")
-include("../hp_parsing.jl")
+include("../../utils.jl")
+include("../../pipeline/train.jl")
 
 using HyperTuning
 using ConfParser
@@ -13,7 +12,6 @@ using .training: train_step
 using .KAN_Convolution: KAN_CNN
 using .loaders: get_darcy_loader
 using .UTILS: loss_fcn
-using .hyperparams: set_hyperparams
 
 function objective(trial)
     seed = get_seed(trial)
@@ -83,7 +81,7 @@ function objective(trial)
 end
 
 activation_list = ["relu", "selu", "leakyrelu", "swish", "gelu"]
-wavelet_list = ["MexicanHat", "DerivativeOfGaussian", "Morlet"]
+wavelet_list = ["MexicanHat", "DerivativeOfGaussian", "Morlet", "Shannon", "Meyer"]
 
 space = Scenario(
     step_rate = 10:40,
@@ -91,7 +89,7 @@ space = Scenario(
     learning_rate = (1e-4..1e-2),
     min_lr = (1e-6..1e-2),
     hidden_dim = 2:100,
-    b_size = 1:30,
+    b_size = 1:50,
     encoder_wav_one = wavelet_list,
     encoder_wav_two = wavelet_list,
     encoder_wav_three = wavelet_list,
@@ -106,7 +104,7 @@ space = Scenario(
     decoder_activation_two = activation_list,
     decoder_activation_three = activation_list,
     decoder_activation_four = activation_list,
-    norm = [false, false],
+    norm = [true, false],
     verbose = true,
     max_trials = 100,
     pruner = MedianPruner(),
@@ -119,7 +117,7 @@ display(top_parameters(space))
 # Save the best configuration
 @unpack step_rate, gamma, learning_rate, min_lr, hidden_dim, b_size, encoder_wav_one, encoder_wav_two, encoder_wav_three, encoder_activation_one, encoder_activation_two, encoder_activation_three, decoder_wav_one, decoder_wav_two, decoder_wav_three, decoder_wav_four, decoder_activation_one, decoder_activation_two, decoder_activation_three, decoder_activation_four, norm = space
 
-conf = ConfParse("wavKAN_CNN/KAN_CNN_config.ini")
+conf = ConfParse("src/models/wavKAN_CNN/KAN_CNN_config.ini")
 parse_conf!(conf)
 
 commit!(conf, "Loss", "p", "2.0")
@@ -146,4 +144,4 @@ commit!(conf, "DecoderActivations", "act_three", decoder_activation_three)
 commit!(conf, "DecoderActivations", "act_four", decoder_activation_four)
 commit!(conf, "Architecture", "norm", string(norm))
 
-save!(conf, "wavKAN_CNN/KAN_CNN_config.ini")
+save!(conf, "src/models/wavKAN_CNN/KAN_CNN_config.ini")

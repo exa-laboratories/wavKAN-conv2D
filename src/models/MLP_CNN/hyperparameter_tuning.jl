@@ -83,7 +83,7 @@ display(top_parameters(space))
 # Save the best configuration
 @unpack step_rate, gamma, learning_rate, min_lr, activation, hidden_dim, b_size = space
 
-conf = ConfParse("MLP_CNN/CNN_config.ini")
+conf = ConfParse("src/models/MLP_CNN/CNN_config.ini")
 parse_conf!(conf)
 
 commit!(conf, "Loss", "p", "2.0")
@@ -96,4 +96,4 @@ commit!(conf, "Architecture", "hidden_dim", string(hidden_dim))
 commit!(conf, "Dataloader", "batch_size", string(b_size))
 commit!(conf, "Optimizer", "type", "Adam")
 
-save!(conf, "MLP_CNN/CNN_config.ini")
+save!(conf, "src/models/MLP_CNN/CNN_config.ini")

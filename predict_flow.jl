@@ -1,6 +1,6 @@
-include("pipeline/data_processing/data_loader.jl")
-include("MLP_CNN/CNN.jl")
-include("MLP_FNO/FNO.jl")
+include("src/pipeline/data_processing/data_loader.jl")
+include("src/models/MLP_CNN/CNN.jl")
+include("src/models/MLP_FNO/FNO.jl")
 
 using Plots; pythonplot()
 using Flux
@@ -13,9 +13,9 @@ train_loader, test_loader = get_darcy_loader(1)
 MODEL_NAME = "FNO"
 
 model_file = Dict(
-    "CNN" => "MLP_CNN/logs/trained_models/model_1.bson",
-    "FNO" => "MLP_FNO/logs/trained_models/model_1.bson",
-    "KAN_CNN" => "wavKAN_CNN/logs/trained_models/model_1.bson"
+    "CNN" => "src/models/MLP_CNN/logs/trained_models/model_1.bson",
+    "FNO" => "src/models/MLP_FNO/logs/trained_models/model_1.bson",
+    "KAN_CNN" => "src/models/wavKAN_CNN/logs/trained_models/model_1.bson"
 )[MODEL_NAME]
 
 # Load the model

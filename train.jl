@@ -1,10 +1,10 @@
 include("hp_parsing.jl")
-include("pipeline/data_processing/data_loader.jl")
-include("utils.jl")
-include("pipeline/train.jl")
-include("MLP_CNN/CNN.jl")
-include("MLP_FNO/FNO.jl")
-include("wavKAN_CNN/KAN_CNN.jl")
+include("src/pipeline/data_processing/data_loader.jl")
+include("src/utils.jl")
+include("src/pipeline/train.jl")
+include("src/models/MLP_CNN/CNN.jl")
+include("src/models/MLP_FNO/FNO.jl")
+include("src/models/wavKAN_CNN/KAN_CNN.jl")
 
 using Random
 using Flux, CUDA, KernelAbstractions
@@ -50,9 +50,9 @@ instantiate_model = Dict(
 )[model_name]
 
 log_file_base = Dict(
-    "CNN" => "MLP_CNN/logs/",
-    "FNO" => "MLP_FNO/logs/",
-    "KAN_CNN" => "wavKAN_CNN/logs/"
+    "CNN" => "src/models/MLP_CNN/logs/",
+    "FNO" => "src/models/MLP_FNO/logs/",
+    "KAN_CNN" => "src/models/wavKAN_CNN/logs/"
 )[model_name]
 
 optimizer = Dict(
