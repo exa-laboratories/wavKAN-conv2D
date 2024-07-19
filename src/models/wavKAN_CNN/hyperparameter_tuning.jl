@@ -48,7 +48,7 @@ function objective(trial)
     ENV["batch_size"] = b_size
     ENV["norm"] = norm
 
-    num_epochs = 50
+    num_epochs = 30
 
     train_loader, test_loader = get_darcy_loader(b_size)
 

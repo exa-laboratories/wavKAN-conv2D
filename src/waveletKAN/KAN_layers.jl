@@ -100,7 +100,7 @@ struct KAN_Convolution
 end
 
 function KAN_Conv(in_channels, out_channels, kernel_size, wavelet, base_activation, stride=1, dilation=0, padding=0, norm=false)
-    dense_kernel = KANdense(prod(kernel_size), 1, wavelet, base_activation, norm)
+    dense_kernel = KANdense(prod(kernel_size)*in_channels, out_channels, wavelet, base_activation, norm)
     return KAN_Convolution(dense_kernel, kernel_size, stride, dilation, padding, norm)
 end
 
@@ -121,7 +121,7 @@ struct KAN_ConvolutionTranspose
 end
 
 function KAN_ConvTranspose(in_channels, out_channels, kernel_size, wavelet, base_activation, stride=1, dilation=0, padding=0, norm=false)
-    dense_kernel = KANdense(prod(kernel_size), 1, wavelet, base_activation, norm)
+    dense_kernel = KANdense(prod(kernel_size)*in_channels, out_channels, wavelet, base_activation, norm)
     return KAN_ConvolutionTranspose(dense_kernel, kernel_size, stride, dilation, padding, norm)
 end
 

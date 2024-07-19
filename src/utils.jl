@@ -118,7 +118,7 @@ function unfold(input, kernel_size; stride=1, padding=0, dilation=1)
     out_w = div(W + 2pw - (dw * (kw - 1) + 1), sw) + 1
 
     slice = create_slicer(dh, dw, sh, sw, out_h, out_w)
-    padded_input = NNlib.pad_circular(input, (ph, ph, pw, pw))
+    padded_input = NNlib.pad_zeros(input, (ph, pw, 0, 0))
 
     output = zeros(0, kw, out_h, out_w, C, N) |> gpu
 
