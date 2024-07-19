@@ -3,6 +3,51 @@ A Julia implementation of Wavelet Kolmogorov-Arnold Networks (wavKAN) for Convol
 
 The MLP models were developed in a [previous side project](https://github.com/PritRaj1/Neural-Operator-Learning). The commit history attributed to their development can be found there. The Dense KAN layer was also developed in a [previous project](https://github.com/PritRaj1/Julia-Wav-KAN).
 
+## To Run
+
+1. Get dependencies:
+
+```bash
+julia requirements.jl
+```
+
+2. Tune hyperparameters:
+
+```bash
+julia src/models/MLP_CNN/hyperparameter_tuning.jl
+```
+
+```bash
+julia src/models/MLP_FNO/hyperparameter_tuning.jl
+```
+    
+```bash
+julia src/models/wavKAN_CNN/hyperparameter_tuning.jl
+```
+
+3. (Alternatively to 2) Manually configure hyperparameters in the respective `config.ini` files.
+    - [Vanilla RNO](https://github.com/PritRaj1/wavKAN-conv2D/blob/main/src/models/MLP_CNN/CNN_config.ini)
+    - [wavKAN RNO](https://github.com/PritRaj1/wavKAN-conv2D/blob/main/src/models/MLP_FNO/FNO_config.ini)
+    - [Vanilla Transformer](https://github.com/PritRaj1/wavKAN-conv2D/blob/main/src/models/wavKAN_CNN/KAN_CNN_config.ini)
+
+4. Train the models, (model_name variable is set on line 26), and log the results:
+
+```bash
+julia train.jl
+```
+
+5. Compare the training loops:
+  
+```bash
+python results.py
+```
+
+6. Visualize the results:
+
+```bash
+julia predict_flow.jl
+```
+
 ## Predictions
 <p align="center">
   <img src="figures/MLP CNN_prediction.gif" alt="CNN Predicted Darcy Flow" width="49%" style="padding-right: 20px;">
