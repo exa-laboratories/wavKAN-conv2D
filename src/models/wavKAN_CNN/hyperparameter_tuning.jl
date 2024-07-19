@@ -48,7 +48,7 @@ function objective(trial)
     ENV["batch_size"] = b_size
     ENV["norm"] = norm
 
-    num_epochs = 100
+    num_epochs = 50
 
     train_loader, test_loader = get_darcy_loader(b_size)
 
@@ -88,7 +88,7 @@ space = Scenario(
     gamma = (0.5..0.9),
     learning_rate = (1e-4..1e-2),
     min_lr = (1e-6..1e-2),
-    hidden_dim = 2:100,
+    hidden_dim = 2:600,
     b_size = 1:50,
     encoder_wav_one = wavelet_list,
     encoder_wav_two = wavelet_list,
