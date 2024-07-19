@@ -5,9 +5,15 @@ The MLP models were developed in a [previous side project](https://github.com/Pr
 
 ## Predictions
 <p align="center">
-  <img src="figures/CNN_prediction.gif" alt="CNN Predicted Darcy Flow" width="49%" style="padding-right: 20px;">
-  <img src="figures/FNO_prediction.gif" alt="CNN Predicted Darcy Flow" width="49%">
+  <img src="figures/MLP CNN_prediction.gif" alt="CNN Predicted Darcy Flow" width="49%" style="padding-right: 20px;">
+  <img src="figures/MLP FNO_prediction.gif" alt="CNN Predicted Darcy Flow" width="49%">
 </p>
+
+## Error Fields
+
+<p align="center">
+  <img src="figures/MLP CNN_error.gif" alt="CNN Error Field" width="49%" style="padding-right: 20px;">
+  <img src="figures/MLP FNO_error.gif" alt="FNO Error Field" width="49%">
 
 ## Wavelets
 

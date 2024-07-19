@@ -43,7 +43,7 @@ anim = @animate for (a, u) in test_loader
     u_pred = u_pred[:, :, 1, 1]
     u = u |> cpu
     u = u[:, :, 1, 1]
-    contourf(X, Y, u_pred .- u, title="$MODEL_NAME Error Field", cbar=true, color=:viridis, aspect_ratio=:equal, clim=(0, 0.03), lims=(0, 0.03))
+    contourf(X, Y, u_pred .- u, title="$MODEL_NAME Error Field", cbar=true, color=:viridis, aspect_ratio=:equal, clim=(0, 1), lims=(0, 1))
 end
 
 # Save the animation to file
