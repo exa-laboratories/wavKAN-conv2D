@@ -1,7 +1,7 @@
 # wavKAN-conv2D
 A Julia implementation of Wavelet Kolmogorov-Arnold Networks (wavKAN) for Convolutional Neural Networks.  Mutli-layer Perceptron (MLP) and wavKAN implementations of the Convolutional Neural Network (CNN) and Fourier Neural Operator (FNO) are applied to learn the solution operator of the 2D Darcy Flow Problem.
 
-The MLP models were developed in a [previous side project](https://github.com/PritRaj1/Neural-Operator-Learning). The commit history attributed to their development can be found there. The Dense KAN layer was also developed in a [previous side project](https://github.com/PritRaj1/Julia-Wav-KAN).
+The MLP models were developed in a [previous side project](https://github.com/PritRaj1/Neural-Operator-Learning). The commit history attributed to their development can be found there. The Dense KAN layer was also developed in a [previous project](https://github.com/PritRaj1/Julia-Wav-KAN).
 
 ## Predictions
 <p align="center">
