@@ -5,7 +5,7 @@ export set_hyperparams
 using ConfParser
 
 function set_CNN_params()
-    conf = ConfParse("MLP_CNN/CNN_config.ini")
+    conf = ConfParse("src/models/MLP_CNN/CNN_config.ini")
     parse_conf!(conf)
 
     ENV["p"] = retrieve(conf, "Loss", "p")
@@ -23,7 +23,7 @@ function set_CNN_params()
 end
 
 function set_FNO_params()
-    conf = ConfParse("MLP_FNO/FNO_config.ini")
+    conf = ConfParse("src/models/MLP_FNO/FNO_config.ini")
     parse_conf!(conf)
 
     ENV["p"] = retrieve(conf, "Loss", "p")
@@ -44,7 +44,7 @@ function set_FNO_params()
 end
 
 function set_KAN_CNN_params()
-    conf = ConfParse("wavKAN_CNN/KAN_CNN_config.ini")
+    conf = ConfParse("src/models/wavKAN_CNN/KAN_CNN_config.ini")
     parse_conf!(conf)
 
     ENV["p"] = retrieve(conf, "Loss", "p")
