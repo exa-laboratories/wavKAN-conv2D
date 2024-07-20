@@ -52,15 +52,18 @@ julia predict_flow.jl
 
 ## Predictions
 <p align="center">
-  <img src="figures/MLP CNN_prediction.gif" alt="CNN Predicted Darcy Flow" width="49%" style="padding-right: 20px;">
-  <img src="figures/MLP FNO_prediction.gif" alt="CNN Predicted Darcy Flow" width="49%">
+  <img src="figures/MLP CNN_prediction.gif" alt="CNN Predicted Darcy Flow" width="32%" style="padding-right: 20px;">
+  <img src="figures/MLP FNO_prediction.gif" alt="FNO Predicted Darcy Flow" width="32%" style="padding-right: 20px;">
+  <img src="figures/KAN CNN_prediction.gif" alt="KAN CNN Predicted Darcy Flow" width="32%">
 </p>
 
 ## Error Fields
 
 <p align="center">
-  <img src="figures/MLP CNN_error.gif" alt="CNN Error Field" width="49%" style="padding-right: 20px;">
-  <img src="figures/MLP FNO_error.gif" alt="FNO Error Field" width="49%">
+  <img src="figures/MLP CNN_error.gif" alt="CNN Error Field" width="32%" style="padding-right: 20px;">
+  <img src="figures/MLP FNO_error.gif" alt="FNO Error Field" width="32%" style="padding-right: 20px;">
+  <img src="figures/KAN CNN_error.gif" alt="KAN CNN Error Field" width="32%">
+</p>
 
 ## Wavelets
 

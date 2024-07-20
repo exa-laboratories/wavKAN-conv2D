@@ -19,9 +19,9 @@
 │ 
 │ In any other case, please file an issue.
 └ @ CUDA ~/.julia/packages/CUDA/75aiI/src/initialization.jl:219
-ERROR: LoadError: Out of GPU memory trying to allocate 7.594 GiB
+ERROR: LoadError: Out of GPU memory trying to allocate 1.246 GiB
 Effective GPU memory usage: 99.95% (47.504 GiB/47.528 GiB)
-Memory pool usage: 45.166 GiB (47.188 GiB reserved)
+Memory pool usage: 46.011 GiB (47.188 GiB reserved)
 
 Stacktrace:
   [1] _pool_alloc
@@ -32,7 +32,7 @@ Stacktrace:
     @ ./timing.jl:395 [inlined]
   [4] pool_alloc
     @ ~/.julia/packages/CUDA/75aiI/src/memory.jl:616 [inlined]
-  [5] CuArray{ForwardDiff.Dual{Nothing, Float32, 1}, 4, CUDA.DeviceMemory}(::UndefInitializer, dims::NTuple{4, Int64})
+  [5] CuArray{Float32, 4, CUDA.DeviceMemory}(::UndefInitializer, dims::NTuple{4, Int64})
     @ CUDA ~/.julia/packages/CUDA/75aiI/src/array.jl:74
   [6] similar
     @ ./abstractarray.jl:877 [inlined]
@@ -44,73 +44,69 @@ Stacktrace:
     @ ./broadcast.jl:223 [inlined]
  [10] copy
     @ ~/.julia/packages/GPUArrays/HjWFN/src/host/broadcast.jl:29 [inlined]
- [11] materialize(bc::Base.Broadcast.Broadcasted{CUDA.CuArrayStyle{4, CUDA.DeviceMemory}, Nothing, Zygote.var"#1388#1389"{typeof(exp)}, Tuple{CuArray{Float32, 4, CUDA.DeviceMemory}}})
-    @ Base.Broadcast ./broadcast.jl:903
- [12] broadcast_forward(f::Function, args::CuArray{Float32, 4, CUDA.DeviceMemory})
-    @ Zygote ~/.julia/packages/Zygote/nsBv0/src/lib/broadcast.jl:282
- [13] adjoint
-    @ ~/.julia/packages/Zygote/nsBv0/src/lib/broadcast.jl:361 [inlined]
- [14] _pullback(__context__::Zygote.Context{false}, 636::typeof(Base.Broadcast.broadcasted), 637::CUDA.CuArrayStyle{4, CUDA.DeviceMemory}, f::Function, args::CuArray{Float32, 4, CUDA.DeviceMemory})
+ [11] materialize
+    @ ./broadcast.jl:903 [inlined]
+ [12] adjoint
+    @ ~/.julia/packages/Zygote/nsBv0/src/lib/broadcast.jl:100 [inlined]
+ [13] _pullback(__context__::Zygote.Context{false}, 596::typeof(Base.Broadcast.broadcasted), 597::typeof(/), x::CuArray{Float32, 4, CUDA.DeviceMemory}, y::CuArray{Float32, 1, CUDA.DeviceMemory})
     @ Zygote ~/.julia/packages/ZygoteRules/M4xmc/src/adjoint.jl:67
- [15] _apply(::Function, ::Vararg{Any})
-    @ Core ./boot.jl:838
- [16] adjoint
-    @ ~/.julia/packages/Zygote/nsBv0/src/lib/lib.jl:203 [inlined]
- [17] _pullback
-    @ ~/.julia/packages/ZygoteRules/M4xmc/src/adjoint.jl:67 [inlined]
- [18] broadcasted
-    @ ./broadcast.jl:1341 [inlined]
- [19] _pullback(::Zygote.Context{false}, ::typeof(Base.Broadcast.broadcasted), ::typeof(exp), ::CuArray{Float32, 4, CUDA.DeviceMemory})
+ [14] MeyerAux
+    @ ~/repos/wavKAN-conv2D/src/waveletKAN/wavelets/meyer_utils.jl:56 [inlined]
+ [15] _pullback(ctx::Zygote.Context{false}, f::typeof(Main.KAN_Convolution.layers.Meyer.MeyerUtils.MeyerAux), args::CuArray{Float32, 4, CUDA.DeviceMemory})
     @ Zygote ~/.julia/packages/Zygote/nsBv0/src/compiler/interface2.jl:0
- [20] MW
-    @ ~/repos/wavKAN-conv2D/src/waveletKAN/wavelets/morlet.jl:36 [inlined]
- [21] _pullback(ctx::Zygote.Context{false}, f::Main.KAN_Convolution.layers.Morlet.MW, args::CuArray{Float32, 4, CUDA.DeviceMemory})
+ [16] MWavelet
+    @ ~/repos/wavKAN-conv2D/src/waveletKAN/wavelets/meyer.jl:39 [inlined]
+ [17] _pullback(ctx::Zygote.Context{false}, f::Main.KAN_Convolution.layers.Meyer.MWavelet, args::CuArray{Float32, 4, CUDA.DeviceMemory})
     @ Zygote ~/.julia/packages/Zygote/nsBv0/src/compiler/interface2.jl:0
- [22] KANdense_layer
+ [18] KANdense_layer
     @ ~/repos/wavKAN-conv2D/src/waveletKAN/KAN_layers.jl:84 [inlined]
- [23] _pullback(ctx::Zygote.Context{false}, f::Main.KAN_Convolution.layers.KANdense_layer, args::CuArray{Float32, 3, CUDA.DeviceMemory})
+ [19] _pullback(ctx::Zygote.Context{false}, f::Main.KAN_Convolution.layers.KANdense_layer, args::CuArray{Float32, 3, CUDA.DeviceMemory})
     @ Zygote ~/.julia/packages/Zygote/nsBv0/src/compiler/interface2.jl:0
- [24] KAN_conv2D
+ [20] KAN_conv2D
     @ ~/repos/wavKAN-conv2D/src/waveletKAN/manual_conv.jl:17 [inlined]
- [25] _pullback(::Zygote.Context{false}, ::typeof(Main.KAN_Convolution.layers.manual_conv.KAN_conv2D), ::CuArray{Float32, 4, CUDA.DeviceMemory}, ::Main.KAN_Convolution.layers.KANdense_layer, ::Tuple{Int64, Int64}, ::Int64, ::Int64, ::Int64)
+ [21] _pullback(::Zygote.Context{false}, ::typeof(Main.KAN_Convolution.layers.manual_conv.KAN_conv2D), ::CuArray{Float32, 4, CUDA.DeviceMemory}, ::Main.KAN_Convolution.layers.KANdense_layer, ::Tuple{Int64, Int64}, ::Int64, ::Int64, ::Int64)
     @ Zygote ~/.julia/packages/Zygote/nsBv0/src/compiler/interface2.jl:0
- [26] KAN_Convolution
+ [22] KAN_Convolution
     @ ~/repos/wavKAN-conv2D/src/waveletKAN/KAN_layers.jl:108 [inlined]
- [27] _pullback(ctx::Zygote.Context{false}, f::Main.KAN_Convolution.layers.KAN_Convolution, args::CuArray{Float32, 4, CUDA.DeviceMemory})
+ [23] _pullback(ctx::Zygote.Context{false}, f::Main.KAN_Convolution.layers.KAN_Convolution, args::CuArray{Float32, 4, CUDA.DeviceMemory})
     @ Zygote ~/.julia/packages/Zygote/nsBv0/src/compiler/interface2.jl:0
- [28] wavKAN_CNN
+ [24] wavKAN_CNN
     @ ~/repos/wavKAN-conv2D/src/models/wavKAN_CNN/KAN_CNN.jl:49 [inlined]
- [29] _pullback(ctx::Zygote.Context{false}, f::Main.KAN_Convolution.wavKAN_CNN, args::CuArray{Float32, 4, CUDA.DeviceMemory})
+ [25] _pullback(ctx::Zygote.Context{false}, f::Main.KAN_Convolution.wavKAN_CNN, args::CuArray{Float32, 4, CUDA.DeviceMemory})
     @ Zygote ~/.julia/packages/Zygote/nsBv0/src/compiler/interface2.jl:0
- [30] loss_fcn
+ [26] loss_fcn
     @ ~/repos/wavKAN-conv2D/src/utils.jl:13 [inlined]
- [31] _pullback(::Zygote.Context{false}, ::typeof(loss_fcn), ::Main.KAN_Convolution.wavKAN_CNN, ::CuArray{Float32, 4, CUDA.DeviceMemory}, ::CuArray{Float32, 4, CUDA.DeviceMemory})
+ [27] _pullback(::Zygote.Context{false}, ::typeof(loss_fcn), ::Main.KAN_Convolution.wavKAN_CNN, ::CuArray{Float32, 4, CUDA.DeviceMemory}, ::CuArray{Float32, 4, CUDA.DeviceMemory})
     @ Zygote ~/.julia/packages/Zygote/nsBv0/src/compiler/interface2.jl:0
- [32] #1
+ [28] #1
     @ ~/repos/wavKAN-conv2D/src/pipeline/train.jl:20 [inlined]
- [33] _pullback(ctx::Zygote.Context{false}, f::Main.training.var"#1#2"{typeof(loss_fcn), CuArray{Float32, 4, CUDA.DeviceMemory}, CuArray{Float32, 4, CUDA.DeviceMemory}}, args::Main.KAN_Convolution.wavKAN_CNN)
+ [29] _pullback(ctx::Zygote.Context{false}, f::Main.training.var"#1#2"{typeof(loss_fcn), CuArray{Float32, 4, CUDA.DeviceMemory}, CuArray{Float32, 4, CUDA.DeviceMemory}}, args::Main.KAN_Convolution.wavKAN_CNN)
     @ Zygote ~/.julia/packages/Zygote/nsBv0/src/compiler/interface2.jl:0
- [34] pullback(f::Function, cx::Zygote.Context{false}, args::Main.KAN_Convolution.wavKAN_CNN)
+ [30] pullback(f::Function, cx::Zygote.Context{false}, args::Main.KAN_Convolution.wavKAN_CNN)
     @ Zygote ~/.julia/packages/Zygote/nsBv0/src/compiler/interface.jl:90
- [35] pullback
+ [31] pullback
     @ ~/.julia/packages/Zygote/nsBv0/src/compiler/interface.jl:88 [inlined]
- [36] withgradient(f::Function, args::Main.KAN_Convolution.wavKAN_CNN)
+ [32] withgradient(f::Function, args::Main.KAN_Convolution.wavKAN_CNN)
     @ Zygote ~/.julia/packages/Zygote/nsBv0/src/compiler/interface.jl:205
- [37] train_step(m::Main.KAN_Convolution.wavKAN_CNN, opt_state::@NamedTuple{encoder::Vector{NamedTuple{(:dense_kernel, :kernel_size, :stride, :dilation, :padding, :norm)}}, decoder::Vector{NamedTuple{(:dense_kernel, :kernel_size, :stride, :dilation, :padding, :norm)}}}, train_loader::MLUtils.DataLoader{Tuple{CuArray{Float32, 4, CUDA.DeviceMemory}, CuArray{Float32, 4, CUDA.DeviceMemory}}, Random._GLOBAL_RNG, Val{nothing}}, test_loader::MLUtils.DataLoader{Tuple{CuArray{Float32, 4, CUDA.DeviceMemory}, CuArray{Float32, 4, CUDA.DeviceMemory}}, Random._GLOBAL_RNG, Val{nothing}}, loss::typeof(loss_fcn), epoch::Int64)
+ [33] train_step(m::Main.KAN_Convolution.wavKAN_CNN, opt_state::@NamedTuple{encoder::Vector{NamedTuple{(:dense_kernel, :kernel_size, :stride, :dilation, :padding, :norm)}}, decoder::Vector{NamedTuple{(:dense_kernel, :kernel_size, :stride, :dilation, :padding, :norm)}}}, train_loader::MLUtils.DataLoader{Tuple{CuArray{Float32, 4, CUDA.DeviceMemory}, CuArray{Float32, 4, CUDA.DeviceMemory}}, Random._GLOBAL_RNG, Val{nothing}}, test_loader::MLUtils.DataLoader{Tuple{CuArray{Float32, 4, CUDA.DeviceMemory}, CuArray{Float32, 4, CUDA.DeviceMemory}}, Random._GLOBAL_RNG, Val{nothing}}, loss::typeof(loss_fcn), epoch::Int64)
     @ Main.training ~/repos/wavKAN-conv2D/src/pipeline/train.jl:20
- [38] objective(trial::HyperTuning.Trial{Int64})
+ [34] objective(trial::HyperTuning.Trial{Int64})
     @ Main ~/repos/wavKAN-conv2D/src/models/wavKAN_CNN/hyperparameter_tuning.jl:68
- [39] evaluate_trial!(f::typeof(objective), trial::HyperTuning.Trial{Int64}, verbose::Bool)
+ [35] evaluate_trial!(f::typeof(objective), trial::HyperTuning.Trial{Int64}, verbose::Bool)
     @ HyperTuning ~/.julia/packages/HyperTuning/7Qthr/src/evaluator/sequential.jl:5
- [40] evaluate_objective_sequential(f::Function, scenario::Scenario)
+ [36] evaluate_objective_sequential(f::Function, scenario::Scenario)
     @ HyperTuning ~/.julia/packages/HyperTuning/7Qthr/src/evaluator/sequential.jl:27
- [41] evaluate_objective
+ [37] evaluate_objective
     @ ~/.julia/packages/HyperTuning/7Qthr/src/evaluator/evaluate_objective.jl:12 [inlined]
- [42] optimize!(f::Function, scenario::Scenario)
+ [38] optimize!(f::Function, scenario::Scenario)
     @ HyperTuning ~/.julia/packages/HyperTuning/7Qthr/src/optimize.jl:29
- [43] optimize(f::Function, scenario::Scenario)
+ [39] optimize(f::Function, scenario::Scenario)
     @ HyperTuning ~/.julia/packages/HyperTuning/7Qthr/src/optimize.jl:47
- [44] top-level scope
+ [40] top-level scope
     @ ~/repos/wavKAN-conv2D/src/models/wavKAN_CNN/hyperparameter_tuning.jl:113
 in expression starting at /home/pr478/repos/wavKAN-conv2D/src/models/wavKAN_CNN/hyperparameter_tuning.jl:113
-[+] Trial 1: Pair{Symbol, Any}[:b_size => 17, :decoder_activation_four => "leakyrelu", :decoder_activation_one => "selu", :decoder_activation_three => "relu", :decoder_activation_two => "leakyrelu", :decoder_wav_four => "DerivativeOfGaussian", :decoder_wav_one => "MexicanHat", :decoder_wav_three => "Morlet", :decoder_wav_two => "Shannon", :encoder_activation_one => "swish", :encoder_activation_three => "swish", :encoder_activation_two => "relu", :encoder_wav_one => "DerivativeOfGaussian", :encoder_wav_three => "Morlet", :encoder_wav_two => "Shannon", :gamma => 0.8659434979915861, :hidden_dim => 2, :learning_rate => 0.007864284788073776, :min_lr => 0.0034890926000128403, :norm => true, :step_rate => 37] evaluated NaN at instance 1
+[+] Trial 1: Pair{Symbol, Any}[:b_size => 13, :decoder_activation_four => "leakyrelu", :decoder_activation_one => "selu", :decoder_activation_three => "relu", :decoder_activation_two => "leakyrelu", :decoder_wav_four => "DerivativeOfGaussian", :decoder_wav_one => "MexicanHat", :decoder_wav_three => "Morlet", :decoder_wav_two => "Shannon", :encoder_activation_one => "swish", :encoder_activation_three => "swish", :encoder_activation_two => "relu", :encoder_wav_one => "DerivativeOfGaussian", :encoder_wav_three => "Morlet", :encoder_wav_two => "Shannon", :gamma => 0.8659434979915861, :hidden_dim => 2, :learning_rate => 0.007864284788073776, :min_lr => 0.0034890926000128403, :norm => true, :step_rate => 37] evaluated 6545.099365234375 at instance 1
+[+] Trial 2: Pair{Symbol, Any}[:b_size => 4, :decoder_activation_four => "relu", :decoder_activation_one => "gelu", :decoder_activation_three => "selu", :decoder_activation_two => "swish", :decoder_wav_four => "Morlet", :decoder_wav_one => "DerivativeOfGaussian", :decoder_wav_three => "Meyer", :decoder_wav_two => "Shannon", :encoder_activation_one => "swish", :encoder_activation_three => "relu", :encoder_activation_two => "selu", :encoder_wav_one => "Meyer", :encoder_wav_three => "Morlet", :encoder_wav_two => "DerivativeOfGaussian", :gamma => 0.6097614782589165, :hidden_dim => 10, :learning_rate => 0.0036110741523257862, :min_lr => 0.006172869203888238, :norm => true, :step_rate => 32] evaluated NaN at instance 1
+[+] Trial 3: Pair{Symbol, Any}[:b_size => 9, :decoder_activation_four => "selu", :decoder_activation_one => "swish", :decoder_activation_three => "swish", :decoder_activation_two => "leakyrelu", :decoder_wav_four => "DerivativeOfGaussian", :decoder_wav_one => "Morlet", :decoder_wav_three => "Meyer", :decoder_wav_two => "Shannon", :encoder_activation_one => "leakyrelu", :encoder_activation_three => "relu", :encoder_activation_two => "swish", :encoder_wav_one => "MexicanHat", :encoder_wav_three => "Morlet", :encoder_wav_two => "Shannon", :gamma => 0.6241314489222507, :hidden_dim => 10, :learning_rate => 0.0016336249541937854, :min_lr => 0.005171545533232916, :norm => false, :step_rate => 18] evaluated 69354.7260131836 at instance 1
+[+] Trial 4: Pair{Symbol, Any}[:b_size => 2, :decoder_activation_four => "leakyrelu", :decoder_activation_one => "selu", :decoder_activation_three => "leakyrelu", :decoder_activation_two => "swish", :decoder_wav_four => "Meyer", :decoder_wav_one => "DerivativeOfGaussian", :decoder_wav_three => "MexicanHat", :decoder_wav_two => "DerivativeOfGaussian", :encoder_activation_one => "relu", :encoder_activation_three => "gelu", :encoder_activation_two => "selu", :encoder_wav_one => "DerivativeOfGaussian", :encoder_wav_three => "MexicanHat", :encoder_wav_two => "Morlet", :gamma => 0.8765086159263702, :hidden_dim => 2, :learning_rate => 0.008974685158972838, :min_lr => 0.0016231788361528113, :norm => false, :step_rate => 24] evaluated NaN at instance 1
+[+] Trial 5: Pair{Symbol, Any}[:b_size => 1, :decoder_activation_four => "relu", :decoder_activation_one => "selu", :decoder_activation_three => "relu", :decoder_activation_two => "leakyrelu", :decoder_wav_four => "MexicanHat", :decoder_wav_one => "Shannon", :decoder_wav_three => "Shannon", :decoder_wav_two => "DerivativeOfGaussian", :encoder_activation_one => "gelu", :encoder_activation_three => "swish", :encoder_activation_two => "relu", :encoder_wav_one => "Morlet", :encoder_wav_three => "Meyer", :encoder_wav_two => "DerivativeOfGaussian", :gamma => 0.8067523372370902, :hidden_dim => 7, :learning_rate => 0.006738822589613545, :min_lr => 0.005545448259344147, :norm => true, :step_rate => 38] evaluated NaN at instance 1
