@@ -60,7 +60,7 @@ optimizer = Dict(
     "SGD" => Optimisers.Descent(learning_rate)
 )[optimizer_name]
 
-for num in 1:NUM_REPETITIONS
+for num in 2:NUM_REPETITIONS
     file_name = log_file_base * "repetition_" * string(num) * ".csv"
     seed = Random.seed!(num)
     model = instantiate_model()
