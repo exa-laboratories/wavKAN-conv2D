@@ -6,19 +6,19 @@ from tabulate import tabulate
 
 log_locations = [
     "src/models/MLP_CNN/logs",
-    "src/models/MLP_RNO/logs",
+    "src/models/MLP_FNO/logs",
     "src/models/wavKAN_CNN/logs",
 ]
 
 plot_names = [
     "MLP CNN",
-    "MLP RNO",
+    "MLP FNO",
     "KAN CNN",
 ]
 
 model_file = [
     "src/models/MLP_CNN/logs/trained_models/model_1.bson",
-    "src/models/MLP_RNO/logs/trained_models/model_1.bson",
+    "src/models/MLP_FNO/logs/trained_models/model_1.bson",
     "src/models/wavKAN_CNN/logs/trained_models/model_1.bson",
 ]
 

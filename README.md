@@ -3,8 +3,6 @@ A Julia implementation of Wavelet Kolmogorov-Arnold Networks (wavKAN) for Convol
 
 The MLP models were developed in a [previous side project](https://github.com/PritRaj1/Neural-Operator-Learning). The commit history attributed to their development can be found there. The Dense KAN layer was also developed in a [previous project](https://github.com/PritRaj1/Julia-Wav-KAN).
 
-WORK IN PROGRESS - Need to tune KAN model and train.
-
 ## To Run
 
 1. Get dependencies:
@@ -50,20 +48,36 @@ python results.py
 julia predict_flow.jl
 ```
 
-## Predictions
+## Results
+
+of 90, achieving superior performance with a hidden dimension of only 5. However, it did not surpass the MLP FNO, which is expected given the FNO's suitability for predicting 2D Darcy Flow. A wavelet KAN FNO was not implemented in this comparison, it would be interesting to see how it compares to the MLP FNO.
+
+### Predictions
 <p align="center">
   <img src="figures/MLP CNN_prediction.gif" alt="CNN Predicted Darcy Flow" width="32%" style="padding-right: 20px;">
   <img src="figures/MLP FNO_prediction.gif" alt="FNO Predicted Darcy Flow" width="32%" style="padding-right: 20px;">
   <img src="figures/KAN CNN_prediction.gif" alt="KAN CNN Predicted Darcy Flow" width="32%">
 </p>
 
-## Error Fields
+### Error Fields
 
 <p align="center">
   <img src="figures/MLP CNN_error.gif" alt="CNN Error Field" width="32%" style="padding-right: 20px;">
   <img src="figures/MLP FNO_error.gif" alt="FNO Error Field" width="32%" style="padding-right: 20px;">
   <img src="figures/KAN CNN_error.gif" alt="KAN CNN Error Field" width="32%">
 </p>
+
+### Predictive Power and Consistency
+
+| Model   | Train Loss        | Test Loss    | BIC             | Time (mins)   | Param Count |
+|---------|-------------------|--------------|-----------------|---------------|-------------|
+| MLP CNN | 5.1e+03 ± 1.6e+03 | 1.5e+03 ± 37 | 1.7e+07 ± 73    | 5.2 ± 0.12    | 5,982,121   |
+| MLP FNO | 34 ± 32           | 5 ± 3.1      | 2.1e+07 ± 6.3   | 2.6 ± 0.43    | 4,667,665   |
+| KAN CNN | 6.1e+03 ± 5e+02   | 6.1e+02 ± 50 | 1.5e+05 ± 1e+02 | 2.4e+02 ± 45  | 35,919      |
+
+### TODO - Plot FLOPs comparison
+
+Training time was recorded for each of the models, but this is not considered a reliable estimate of the computational cost of the models, given that they were not run on the same hardware, and multiple tasks were running on the same machine. The number of FLOPs for each model will be calculated and compared in the future, once GFlops is updated to work with the latest Julia version.
 
 ## Wavelets
 
