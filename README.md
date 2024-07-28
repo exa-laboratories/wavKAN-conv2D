@@ -92,6 +92,12 @@ Training time was recorded for each of the models, but this is not considered a 
     <img src="src/waveletKAN/wavelets/animations/Shannon.gif" width="30%" />
 </p>
 
+## Message from author:
+
+Wow! I was not expecting the wavelet-KAN CNN to outperform the MLP CNN to this extent, especially considering how it struggled for this (sequence modelling task)[https://github.com/exa-laboratories/Julia-Wav-KAN]. Generally, tuning parameters for the wavelet KAN was the most difficult aspect, and I brute forced it quite unintelligently with HyperTuning.jl. I personally still think the spline-based KANs hold the edge over wavelets because of their capacities for symbolic regression - I imagine that it's much more difficult to fit arbritrary functions to wavelets than the functions that splines manifest. Besides, the wavelets are built from simpler functions that a spline-based KAN model can represent, (although it's more parameter efficient to just use choose wavelets as your base univariate function than train an entire KAN model to approximate a wavelet for use as a smaller subset of a larger network).
+
+But damn, KANs are hella exciting!
+
 ## Problem and Data - 2D Darcy Flow
 
 The dataset has been sourced from the University of Cambridge Engineering Department's Part IIB course on [Data-Driven and Learning-Based Methods in Mechanics and Materials.](https://teaching.eng.cam.ac.uk/content/engineering-tripos-part-iib-4c11-data-driven-and-learning-based-methods-mechanics-and)
